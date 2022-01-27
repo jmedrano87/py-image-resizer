@@ -26,17 +26,5 @@ FileList = []
 
 for item in Path(SourceDirectory).iterdir():
     if item.match("*.jpg") or item.match("*.jpeg"):
-        FileList.append(item)
-
-if len(FileList) > 0:
-    print("Found jpg files to process:")
-    for File in FileList:
-        print(File)
-    print(
-        "New files will be resized to",
-        Args.coefficient,
-        "and placed in:",
-        Args.Destination,
-    )
-else:
-    print("Did not find any jpg files in " + SourceDirectory)
+        dest = Args.Destination.joinpath(item.name)
+        print("Resizing", item.name, "by", Args.coefficient, "and saving to", dest)
