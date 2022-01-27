@@ -1,5 +1,6 @@
 import argparse
 from pathlib import Path
+import PIL
 from PIL import Image
 
 ArgParser = argparse.ArgumentParser(
@@ -13,11 +14,22 @@ Args = ArgParser.parse_args()
 
 
 def ResizeImage(originalFile, newFile, multiplier):
-    img = Image.open(originalFile)
-    x = int(img.size[0] * multiplier)
-    y = int(img.size[1] * multiplier)
-    NewImg = img.resize((x, y), resample=Image.LANCZOS)
-    NewImg.save(newFile)
+    try:
+        img = Image.open(originalFile)
+    except PIL.UnidentifiedImageError as e:
+        print("Error when trying to open file:", originalFile)
+        print(e)
+    else:
+        x = int(img.size[0] * multiplier)
+        y = int(img.size[1] * multiplier)
+        NewImg = img.resize((x, y), resample=Image.LANCZOS)
+        try:
+            NewImg.save(newFile)
+        except OSError as e:
+            print("Error when attempting to write file:", newFile)
+            print(e)
+        finally:
+            img.close()
 
 
 for item in Path(Args.Source).iterdir():
