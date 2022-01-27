@@ -6,6 +6,7 @@ ArgParser = argparse.ArgumentParser(
     description="Resize all JPG files in source directory and save to destination directory."
 )
 ArgParser.add_argument("-c", "--coefficient", type=float, default=0.5)
+ArgParser.add_argument("-v", "--verbose", action="store_true")
 ArgParser.add_argument("Source", type=Path)
 ArgParser.add_argument("Destination", type=Path)
 Args = ArgParser.parse_args()
@@ -22,5 +23,6 @@ def ResizeImage(originalFile, newFile, multiplier):
 for item in Path(Args.Source).iterdir():
     if item.match("*.jpg") or item.match("*.jpeg"):
         dest = Args.Destination.joinpath(item.name)
-        print("Resizing", item.name, "by", Args.coefficient, "and saving to", dest)
+        if Args.verbose:
+            print("Resizing", item.name, "by", Args.coefficient, "and saving to", dest)
         ResizeImage(item, dest, Args.coefficient)
