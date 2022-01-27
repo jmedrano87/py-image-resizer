@@ -19,9 +19,7 @@ def ResizeImage(originalFile, newFile, multiplier):
     NewImg.save(newFile)
 
 
-SourceDirectory = Args.Source
-
-for item in Path(SourceDirectory).iterdir():
+for item in Path(Args.Source).iterdir():
     if item.match("*.jpg") or item.match("*.jpeg"):
         dest = Args.Destination.joinpath(item.name)
         print("Resizing", item.name, "by", Args.coefficient, "and saving to", dest)
