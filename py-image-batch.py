@@ -19,10 +19,7 @@ def ResizeImage(originalFile, newFile, multiplier):
     NewImg.save(newFile)
 
 
-print("Args passed", Args)
-
 SourceDirectory = Args.Source
-FileList = []
 
 for item in Path(SourceDirectory).iterdir():
     if item.match("*.jpg") or item.match("*.jpeg"):
