@@ -3,7 +3,7 @@ from pathlib import Path
 from PIL import Image
 
 ArgParser = argparse.ArgumentParser(
-    description="Resize all JPG files in source directory."
+    description="Resize all JPG files in source directory and save to destination directory."
 )
 ArgParser.add_argument("-c", "--coefficient", type=float, default=0.5)
 ArgParser.add_argument("Source", type=Path)
