@@ -4,9 +4,11 @@ import PIL
 from PIL import Image
 
 ArgParser = argparse.ArgumentParser(
-    description="Resize all JPG files in source directory and save to destination directory."
+    description="Resize all images with extension type in source directory and save "
+    + "output to destination directory. Default type is jpg."
 )
 ArgParser.add_argument("-c", "--coefficient", type=float, default=0.5)
+ArgParser.add_argument("-t", "--type", type=str, default="jpg")
 ArgParser.add_argument("-v", "--verbose", action="store_true")
 ArgParser.add_argument("Source", type=Path)
 ArgParser.add_argument("Destination", type=Path)
@@ -33,7 +35,7 @@ def ResizeImage(originalFile, newFile, multiplier):
 
 
 for item in Path(Args.Source).iterdir():
-    if item.match("*.jpg") or item.match("*.jpeg"):
+    if item.suffix == "." + Args.type:
         dest = Args.Destination.joinpath(item.name)
         if Args.verbose:
             print("Resizing", item.name, "by", Args.coefficient, "and saving to", dest)
