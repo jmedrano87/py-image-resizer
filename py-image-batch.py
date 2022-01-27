@@ -28,3 +28,4 @@ for item in Path(SourceDirectory).iterdir():
     if item.match("*.jpg") or item.match("*.jpeg"):
         dest = Args.Destination.joinpath(item.name)
         print("Resizing", item.name, "by", Args.coefficient, "and saving to", dest)
+        ResizeImage(item, dest, Args.coefficient)
